@@ -1,0 +1,2 @@
+# The MCP server (mcp_server/server.py) on top of requirements.txt
+mcp==2.3.0

@@ -1,0 +1,56 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pipeline:
+    name: pipeline (dlt + dbt + parity on DuckDB)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt -r requirements-dev.txt
+      - run: ruff check .
+      - run: ./run.sh --offline
+      - run: for step in 0 1 2 3 4 5 6; do ./run.sh check $step; done
+      - run: pytest -q
+
+  airflow:
+    name: airflow DAG imports
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: >
+          pip install "apache-airflow==3.4.0"
+          --constraint https://raw.githubusercontent.com/apache/airflow/constraints-3.4.0/constraints-3.12.txt
+      - run: pip install duckdb==1.5.6
+      - run: DPL_AIRFLOW_PYTHON=$(which python) python scripts/check.py 7
+
+  terraform:
+    name: terraform fmt and validate
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: platform/terraform
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - run: terraform fmt -check -recursive
+      - run: terraform init -backend=false -input=false
+      - run: terraform validate
+
+  container:
+    name: docker build and kubernetes manifests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -f deploy/Dockerfile -t dataplatformlab:ci .
+      - run: kubectl kustomize deploy/k8s > /dev/null

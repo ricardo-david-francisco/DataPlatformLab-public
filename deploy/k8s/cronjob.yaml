@@ -1,0 +1,33 @@
+# The nightly run on Kubernetes: every business day at 02:00, one pod, no overlap, the last runs kept for debugging.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: post-trade-daily
+  labels: {app: dataplatformlab, domain: post-trade}
+spec:
+  schedule: "0 2 * * 1-5"
+  timeZone: "Etc/UTC"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      template:
+        metadata:
+          labels: {app: dataplatformlab}
+        spec:
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10001
+          containers:
+            - name: pipeline
+              image: dataplatformlab:latest
+              imagePullPolicy: IfNotPresent
+              args: ["--offline"]
+              resources:
+                requests: {cpu: 500m, memory: 1Gi}
+                limits: {cpu: "2", memory: 2Gi}
+              securityContext:
+                allowPrivilegeEscalation: false

@@ -1,0 +1,26 @@
+# Run it once now (kubectl apply -k deploy/k8s, then kubectl -n post-trade logs job/post-trade-once -f).
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: post-trade-once
+  labels: {app: dataplatformlab, domain: post-trade}
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      labels: {app: dataplatformlab}
+    spec:
+      restartPolicy: Never
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+      containers:
+        - name: pipeline
+          image: dataplatformlab:latest
+          imagePullPolicy: IfNotPresent
+          args: ["--offline"]
+          resources:
+            requests: {cpu: 500m, memory: 1Gi}
+            limits: {cpu: "2", memory: 2Gi}
+          securityContext:
+            allowPrivilegeEscalation: false

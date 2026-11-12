@@ -1,0 +1,78 @@
+version: 2
+
+models:
+  - name: fct_positions_daily
+    description: >
+      The post-trade domain's data product: positions per fund x security x business day, valued in EUR with the
+      ECB rate of that day. Grain: fund_id, isin, position_date. Owner: post-trade engineering. Ready by 07:00.
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: fund_id
+        data_type: varchar
+        data_tests: [not_null]
+      - name: isin
+        data_type: varchar
+        data_tests: [not_null]
+      - name: position_date
+        data_type: date
+        data_tests: [not_null]
+      - name: quantity
+        data_type: double
+      - name: close_price
+        data_type: double
+      - name: currency
+        data_type: varchar
+      - name: units_per_eur
+        data_type: double
+        data_tests: [not_null]
+      - name: market_value_eur
+        data_type: double
+        data_tests: [not_null]
+  - name: fct_trades
+    columns:
+      - name: trade_id
+        data_tests: [unique, not_null]
+  - name: dim_fund
+    description: SCD Type 2 - one row per fund and version of its attributes; is_current marks today's.
+  - name: dim_security
+    columns:
+      - name: isin
+        data_tests: [unique, not_null]
+  - name: fct_reconciliation_breaks
+    description: Differences between our positions and the custodian's; operations explain or fix each one.
+  - name: fct_fund_kpis_monthly
+    description: The semantic layer's measures per fund and month.
+    meta:
+      semantic_model:
+        grain: fund_id x month
+        measures:
+          aum_month_end_eur: "Semi-additive. AUM on the month's last business day; sums across funds, never across days."
+          net_flows_eur: "Additive. Subscriptions minus redemptions in the month."
+          fee_income_eur: "Additive. Management fees accrued daily (AUM x rate / 365 x calendar days), rounded once per month."
+        dimensions: [fund_id, month, "dim_fund (asset_class, risk_class, sfdr_article)"]
+    columns:
+      - name: fund_id
+        data_tests: [not_null]
+      - name: month
+        data_tests: [not_null]
+
+unit_tests:
+  - name: aum_is_the_month_end_value_not_a_sum
+    description: Semi-additive - two days in a month give the last day's AUM, not their sum.
+    model: fct_fund_kpis_monthly
+    given:
+      - input: ref('fct_positions_daily')
+        rows:
+          - {fund_id: F1, isin: A, position_date: 2026-10-30, market_value_eur: 100}
+          - {fund_id: F1, isin: A, position_date: 2026-10-31, market_value_eur: 110}
+      - input: ref('stg_transfer_agent__flows')
+        rows: []
+      - input: ref('stg_reference__share_classes')
+        rows: []
+      - input: ref('fct_fee_accrual')
+        rows: []
+    expect:
+      rows:
+        - {fund_id: F1, month: 2026-10-01, aum_month_end_eur: 110}

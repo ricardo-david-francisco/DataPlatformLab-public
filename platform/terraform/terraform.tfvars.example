@@ -1,0 +1,5 @@
+# Copy to terraform.tfvars (git-ignored) and fill in. No password: key-pair authentication.
+organization_name = "ORGNAME"
+account_name      = "ACCOUNTNAME"
+user              = "YOUR_USER"
+private_key_path  = "~/.snowflake/dpl_rsa_key.p8"

@@ -1,0 +1,55 @@
+version: 2
+
+models:
+  - name: stg_custody__trades
+    description: Every custodian trade message; amendments are new versions of a trade_id.
+    columns:
+      - name: message_id
+        data_tests: [unique, not_null]
+      - name: side
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['BUY', 'SELL']
+      - name: fund_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_reference__funds')
+                field: fund_id
+      - name: isin
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_reference__securities')
+                field: isin
+  - name: stg_custody__settlements
+    columns:
+      - name: trade_id
+        data_tests: [unique, not_null]
+      - name: status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['SETTLED', 'SETTLED_LATE', 'FAILED', 'PENDING']
+  - name: stg_ecb__fx_rates
+    columns:
+      - name: units_per_eur
+        data_tests: [not_null]
+  - name: stg_reference__funds
+    columns:
+      - name: fund_id
+        data_tests: [unique, not_null]
+  - name: stg_reference__share_classes
+    columns:
+      - name: share_class_id
+        data_tests: [unique, not_null]
+  - name: stg_reference__securities
+    columns:
+      - name: isin
+        data_tests: [unique, not_null]
+  - name: stg_transfer_agent__flows
+    columns:
+      - name: flow_id
+        data_tests: [unique, not_null]

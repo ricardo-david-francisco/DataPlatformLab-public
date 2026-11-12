@@ -1,0 +1,12 @@
+[tool.ruff]
+line-length = 130
+target-version = "py311"
+extend-exclude = ["transform/target", "transform/dbt_packages", "data"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+# B008: dlt declares incremental cursors as argument defaults (dlt.sources.incremental): its documented idiom.
+ignore = ["B008"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

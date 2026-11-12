@@ -1,0 +1,32 @@
+version: 2
+
+# The raw layer, loaded by dlt (ingestion/pipelines.py). One dlt dataset = one schema.
+sources:
+  - name: ecb
+    schema: raw_ecb
+    description: Euro foreign exchange reference rates, live from the ECB Data Portal.
+    tables:
+      - name: fx_rates
+  - name: reference
+    schema: raw_reference
+    tables:
+      - name: funds
+      - name: share_classes
+      - name: securities
+      - name: fund_attributes
+  - name: market
+    schema: raw_market
+    tables:
+      - name: prices
+  - name: custody
+    schema: raw_custody
+    description: The custodian's feeds - trade messages (every version), settlements, end-of-day positions.
+    tables:
+      - name: trades
+      - name: settlements
+      - name: custodian_positions
+      - name: opening_positions
+  - name: transfer_agent
+    schema: raw_transfer_agent
+    tables:
+      - name: flows

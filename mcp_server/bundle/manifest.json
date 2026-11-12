@@ -1,0 +1,75 @@
+{
+  "manifest_version": "0.3",
+  "name": "dataplatformlab",
+  "display_name": "DataPlatformLab",
+  "version": "1.0.0",
+  "description": "Query the post-trade data product (local DuckDB or Snowflake), run the tour's checks, build with dbt and read the code of DataPlatformLab, running in a WSL distribution.",
+  "long_description": "Claude Desktop starts the DataPlatformLab MCP server inside a WSL distribution (wsl.exe) and talks to it over stdio. Queries open the warehouse read-only, or with target snowflake run one SELECT, SHOW or DESCRIBE on the Snowflake account as a read-only role (key-pair sign-in from ~/.snowflake/dpl.env inside WSL); the actions are a fixed list: the tour's checks, dbt commands and the pipeline.",
+  "author": {
+    "name": "Ricardo David Francisco",
+    "url": "https://github.com/ricardo-david-francisco"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ricardo-david-francisco/DataPlatformLab-public"
+  },
+  "license": "MIT",
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"],
+      "env": {
+        "DPL_DISTRO": "${user_config.distro}",
+        "DPL_REPO_WSL": "${user_config.repo_wsl_path}",
+        "DPL_PYTHON": "${user_config.python}",
+        "DPL_SNOWFLAKE_ROLE": "${user_config.snowflake_role}"
+      }
+    }
+  },
+  "tools": [
+    {"name": "tour", "description": "The steps of the tour and how each is checked."},
+    {"name": "check", "description": "Run the check of one tour step (0-8)."},
+    {"name": "tables", "description": "The tables and row counts, local or on Snowflake."},
+    {"name": "query", "description": "A read-only SQL query, local (Snowflake SQL accepted) or on Snowflake."},
+    {"name": "dbt", "description": "dbt build, test, run, compile, ls, snapshot or parse."},
+    {"name": "run_pipeline", "description": "The whole pipeline end to end."},
+    {"name": "parity_report", "description": "The migration parity report."},
+    {"name": "translate_tsql", "description": "T-SQL to Snowflake SQL with sqlglot."},
+    {"name": "read_file", "description": "Read a file of the repository."}
+  ],
+  "user_config": {
+    "distro": {
+      "type": "string",
+      "title": "WSL distribution",
+      "description": "The WSL distribution where DataPlatformLab runs. Leave empty for the default distribution.",
+      "default": "",
+      "required": false
+    },
+    "repo_wsl_path": {
+      "type": "string",
+      "title": "Repository path inside WSL",
+      "description": "Where DataPlatformLab is, as a Linux path, for example /mnt/c/src/DataPlatformLab-public.",
+      "required": true
+    },
+    "python": {
+      "type": "string",
+      "title": "Python inside WSL",
+      "description": "A Python with requirements.txt and the mcp package installed.",
+      "default": "/opt/de/bin/python",
+      "required": true
+    },
+    "snowflake_role": {
+      "type": "string",
+      "title": "Snowflake role",
+      "description": "The role for target snowflake. DPL_FINANCE_ANALYST reads the marts only; DPL_ENGINEER sees every layer.",
+      "default": "DPL_FINANCE_ANALYST",
+      "required": false
+    }
+  },
+  "compatibility": {
+    "platforms": ["win32"],
+    "runtimes": {"node": ">=18.0.0"}
+  }
+}

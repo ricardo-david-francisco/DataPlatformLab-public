@@ -1,0 +1,9 @@
+snapshots:
+  - name: snap_fund_attributes
+    description: SCD Type 2 history of the funds' attributes (portfolio manager, risk class, SFDR article).
+    relation: source('reference', 'fund_attributes')
+    config:
+      schema: snapshots
+      unique_key: fund_id
+      strategy: check
+      check_cols: [portfolio_manager, risk_class, sfdr_article]

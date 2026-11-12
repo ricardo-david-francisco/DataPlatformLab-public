@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 752" width="960" height="752" font-family="'Brand Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" role="img" aria-label="DataPlatformLab, the same layers on two engines. Sources: the ECB API, the custodian, the transfer agent, market data and a legacy SQL Server warehouse. The Snowflake stack, built and tested: dlt loads raw, dbt builds staging and marts, sqlglot and a parity check prove the migration; Airflow, Docker, Kubernetes, GitHub Actions and Terraform run and ship it. The Databricks lakehouse, the same design, not built yet: PySpark MERGE into Delta bronze, silver and gold, Lakeflow Jobs in Asset Bundles, Unity Catalog and serverless SQL warehouses. Consumers: finance, operations, risk, Power BI and an AI lab.">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#818C92"/></marker></defs>
+<defs><marker id="ah-db" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#FF7A5C"/></marker></defs>
+<rect x="0.5" y="0.5" width="959" height="751" rx="14" fill="#0A0C0E" stroke="#232B30"/>
+<text x="35" y="40" font-size="12" font-weight="700" letter-spacing="1.5" fill="#CDF546">01  SOURCES</text>
+<rect x="560.5" y="31" width="9" height="9" rx="2" fill="#56C2EE"/>
+<text x="574.5" y="40" font-size="12" font-weight="700" fill="#56C2EE">built and tested</text>
+<rect x="718.3" y="31.7" width="7.6" height="7.6" rx="2" fill="none" stroke="#FF7A5C" stroke-width="1.4" stroke-dasharray="2.5 1.5"/>
+<text x="731.6" y="40" font-size="12" font-weight="700" fill="#FF7A5C">design only, not built yet</text>
+<rect x="48.0" y="52" width="160.0" height="50" rx="8" fill="#12171A" stroke="#2C363C"/>
+<text x="128.0" y="73" font-size="14" font-weight="700" text-anchor="middle" fill="#EDF1F2">ECB API</text>
+<text x="128.0" y="91" font-size="11.5" text-anchor="middle" fill="#8B969C">FX rates, live</text>
+<rect x="224.0" y="52" width="160.0" height="50" rx="8" fill="#12171A" stroke="#2C363C"/>
+<text x="304.0" y="73" font-size="14" font-weight="700" text-anchor="middle" fill="#EDF1F2">Custodian</text>
+<text x="304.0" y="91" font-size="11.5" text-anchor="middle" fill="#8B969C">trades, positions</text>
+<rect x="400.0" y="52" width="160.0" height="50" rx="8" fill="#12171A" stroke="#2C363C"/>
+<text x="480.0" y="73" font-size="14" font-weight="700" text-anchor="middle" fill="#EDF1F2">Transfer agent</text>
+<text x="480.0" y="91" font-size="11.5" text-anchor="middle" fill="#8B969C">subs / redemptions</text>
+<rect x="576.0" y="52" width="160.0" height="50" rx="8" fill="#12171A" stroke="#2C363C"/>
+<text x="656.0" y="73" font-size="14" font-weight="700" text-anchor="middle" fill="#EDF1F2">Market data</text>
+<text x="656.0" y="91" font-size="11.5" text-anchor="middle" fill="#8B969C">daily prices</text>
+<rect x="752.0" y="52" width="160.0" height="50" rx="8" fill="#12171A" stroke="#2C363C"/>
+<text x="832.0" y="73" font-size="14" font-weight="700" text-anchor="middle" fill="#EDF1F2">Legacy DW</text>
+<text x="832.0" y="91" font-size="11.5" text-anchor="middle" fill="#8B969C">SQL Server, T-SQL</text>
+<line x1="128.0" y1="102" x2="128.0" y2="118" stroke="#818C92" stroke-width="1.6"/>
+<line x1="304.0" y1="102" x2="304.0" y2="118" stroke="#818C92" stroke-width="1.6"/>
+<line x1="480.0" y1="102" x2="480.0" y2="118" stroke="#818C92" stroke-width="1.6"/>
+<line x1="656.0" y1="102" x2="656.0" y2="118" stroke="#818C92" stroke-width="1.6"/>
+<line x1="832.0" y1="102" x2="832.0" y2="118" stroke="#818C92" stroke-width="1.6"/>
+<line x1="128.0" y1="118" x2="832.0" y2="118" stroke="#818C92" stroke-width="1.6"/>
+<line x1="480.0" y1="118" x2="480.0" y2="164" stroke="#818C92" stroke-width="1.6" marker-end="url(#ah)"/>
+<text x="35" y="156" font-size="12" font-weight="700" letter-spacing="1.5" fill="#CDF546">02  PLATFORM · THE SAME LAYERS ON TWO ENGINES</text>
+<rect x="22" y="166" width="916" height="456" rx="12" fill="none" stroke="#232B30"/>
+<text x="35" y="190" font-size="11.5" font-weight="700" letter-spacing="1.2" fill="#56C2EE">SNOWFLAKE STACK · BUILT AND TESTED (PHASE 1)</text>
+<rect x="35" y="202" width="200" height="96" rx="10" fill="#12171A"/>
+<rect x="35" y="202" width="200" height="20" rx="10" fill="#B8834A"/>
+<rect x="35" y="208" width="200" height="16" fill="#12171A"/>
+<rect x="35" y="202" width="200" height="96" rx="10" fill="none" stroke="#2C363C" stroke-width="1"/>
+<text x="135.0" y="233" font-size="14" font-weight="800" letter-spacing="2" text-anchor="middle" fill="#EDF1F2">RAW</text>
+<text x="135.0" y="255" font-size="12" text-anchor="middle" fill="#56C2EE">dlt: REST, JSON, files</text>
+<text x="135.0" y="271" font-size="12" text-anchor="middle" fill="#8B969C">incremental + merge</text>
+<text x="135.0" y="287" font-size="12" text-anchor="middle" fill="#8B969C">schema contract: freeze</text>
+<line x1="239" y1="250.0" x2="261" y2="250.0" stroke="#818C92" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="265" y="202" width="200" height="96" rx="10" fill="#12171A"/>
+<rect x="265" y="202" width="200" height="20" rx="10" fill="#9AA5AD"/>
+<rect x="265" y="208" width="200" height="16" fill="#12171A"/>
+<rect x="265" y="202" width="200" height="96" rx="10" fill="none" stroke="#2C363C" stroke-width="1"/>
+<text x="365.0" y="233" font-size="14" font-weight="800" letter-spacing="2" text-anchor="middle" fill="#EDF1F2">STAGING</text>
+<text x="365.0" y="255" font-size="12" text-anchor="middle" fill="#56C2EE">dbt staging models</text>
+<text x="365.0" y="271" font-size="12" text-anchor="middle" fill="#8B969C">typed, renamed, tested</text>
+<text x="365.0" y="287" font-size="12" text-anchor="middle" fill="#8B969C">latest trade version</text>
+<line x1="469" y1="250.0" x2="491" y2="250.0" stroke="#818C92" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="495" y="202" width="200" height="96" rx="10" fill="#12171A"/>
+<rect x="495" y="202" width="200" height="20" rx="10" fill="#D9B23A"/>
+<rect x="495" y="208" width="200" height="16" fill="#12171A"/>
+<rect x="495" y="202" width="200" height="96" rx="10" fill="none" stroke="#2C363C" stroke-width="1"/>
+<text x="595.0" y="233" font-size="14" font-weight="800" letter-spacing="2" text-anchor="middle" fill="#EDF1F2">MARTS</text>
+<text x="595.0" y="255" font-size="12" text-anchor="middle" fill="#56C2EE">dbt marts: data products</text>
+<text x="595.0" y="271" font-size="12" text-anchor="middle" fill="#8B969C">contract + SCD2 snapshot</text>
+<text x="595.0" y="287" font-size="12" text-anchor="middle" fill="#8B969C">KPIs, recon breaks</text>
+<line x1="699" y1="250.0" x2="721" y2="250.0" stroke="#818C92" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="725" y="202" width="200" height="96" rx="10" fill="#12171A"/>
+<rect x="725" y="202" width="200" height="20" rx="10" fill="#A78BFA"/>
+<rect x="725" y="208" width="200" height="16" fill="#12171A"/>
+<rect x="725" y="202" width="200" height="96" rx="10" fill="none" stroke="#2C363C" stroke-width="1"/>
+<text x="825.0" y="233" font-size="14" font-weight="800" letter-spacing="2" text-anchor="middle" fill="#EDF1F2">MIGRATION</text>
+<text x="825.0" y="255" font-size="12" text-anchor="middle" fill="#56C2EE">legacy T-SQL, sqlglot</text>
+<text x="825.0" y="271" font-size="12" text-anchor="middle" fill="#8B969C">→ Snowflake SQL, run</text>
+<text x="825.0" y="287" font-size="12" text-anchor="middle" fill="#8B969C">parity: 0 unexplained</text>
+<rect x="35" y="306" width="890" height="80" rx="10" fill="#12171A" stroke="#2C363C" stroke-width="1"/>
+<text x="51.0" y="326" font-size="11" font-weight="700" letter-spacing="1.2" fill="#56C2EE">ORCHESTRATE</text>
+<text x="51.0" y="344" font-size="12" fill="#EDF1F2">Airflow 3: nightly DAG</text>
+<text x="51.0" y="360" font-size="12" fill="#8B969C">5 loads in parallel</text>
+<text x="51.0" y="376" font-size="12" fill="#8B969C">retries, failure alerts</text>
+<line x1="257.5" y1="318" x2="257.5" y2="374" stroke="#2C363C" stroke-width="1"/>
+<text x="273.5" y="326" font-size="11" font-weight="700" letter-spacing="1.2" fill="#56C2EE">BUILD &amp; SHIP</text>
+<text x="273.5" y="344" font-size="12" fill="#EDF1F2">Docker, non-root image</text>
+<text x="273.5" y="360" font-size="12" fill="#8B969C">Kubernetes CronJob</text>
+<text x="273.5" y="376" font-size="12" fill="#8B969C">GitHub Actions CI</text>
+<line x1="480.0" y1="318" x2="480.0" y2="374" stroke="#2C363C" stroke-width="1"/>
+<text x="496.0" y="326" font-size="11" font-weight="700" letter-spacing="1.2" fill="#56C2EE">AS CODE &amp; GOVERN</text>
+<text x="496.0" y="344" font-size="12" fill="#EDF1F2">Terraform (Snowflake)</text>
+<text x="496.0" y="360" font-size="12" fill="#8B969C">access + functional roles</text>
+<text x="496.0" y="376" font-size="12" fill="#8B969C">future grants, key-pair</text>
+<line x1="702.5" y1="318" x2="702.5" y2="374" stroke="#2C363C" stroke-width="1"/>
+<text x="718.5" y="326" font-size="11" font-weight="700" letter-spacing="1.2" fill="#56C2EE">COST &amp; AI</text>
+<text x="718.5" y="344" font-size="12" fill="#EDF1F2">XSMALL, auto-suspend</text>
+<text x="718.5" y="360" font-size="12" fill="#8B969C">resource monitor: cap</text>
+<text x="718.5" y="376" font-size="12" fill="#8B969C">MCP server for AI</text>
+<text x="35" y="418" font-size="11.5" font-weight="700" letter-spacing="1.2" fill="#FF7A5C">DATABRICKS LAKEHOUSE · SAME DESIGN, NOT BUILT YET (PHASE 2)</text>
+<rect x="35" y="430" width="200" height="96" rx="10" fill="#12171A"/>
+<rect x="35" y="430" width="200" height="20" rx="10" fill="#B8834A"/>
+<rect x="35" y="436" width="200" height="16" fill="#12171A"/>
+<rect x="35" y="430" width="200" height="96" rx="10" fill="none" stroke="#FF7A5C" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="135.0" y="461" font-size="14" font-weight="800" letter-spacing="2" text-anchor="middle" fill="#EDF1F2">BRONZE</text>
+<text x="135.0" y="483" font-size="12" text-anchor="middle" fill="#FF7A5C">PySpark notebook task</text>
+<text x="135.0" y="499" font-size="12" text-anchor="middle" fill="#8B969C">MERGE into Delta on keys</text>
+<text x="135.0" y="515" font-size="12" text-anchor="middle" fill="#8B969C">schema-drift handling</text>
+<line x1="239" y1="478.0" x2="261" y2="478.0" stroke="#FF7A5C" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#ah-db)"/>
+<rect x="265" y="430" width="200" height="96" rx="10" fill="#12171A"/>
+<rect x="265" y="430" width="200" height="20" rx="10" fill="#9AA5AD"/>
+<rect x="265" y="436" width="200" height="16" fill="#12171A"/>
+<rect x="265" y="430" width="200" height="96" rx="10" fill="none" stroke="#FF7A5C" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="365.0" y="461" font-size="14" font-weight="800" letter-spacing="2" text-anchor="middle" fill="#EDF1F2">SILVER</text>
+<text x="365.0" y="483" font-size="12" text-anchor="middle" fill="#FF7A5C">PySpark / Spark SQL</text>
+<text x="365.0" y="499" font-size="12" text-anchor="middle" fill="#8B969C">typed, flattened, MERGE</text>
+<text x="365.0" y="515" font-size="12" text-anchor="middle" fill="#8B969C">tables as code (DDL)</text>
+<line x1="469" y1="478.0" x2="491" y2="478.0" stroke="#FF7A5C" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#ah-db)"/>
+<rect x="495" y="430" width="200" height="96" rx="10" fill="#12171A"/>
+<rect x="495" y="430" width="200" height="20" rx="10" fill="#D9B23A"/>
+<rect x="495" y="436" width="200" height="16" fill="#12171A"/>
+<rect x="495" y="430" width="200" height="96" rx="10" fill="none" stroke="#FF7A5C" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="595.0" y="461" font-size="14" font-weight="800" letter-spacing="2" text-anchor="middle" fill="#EDF1F2">GOLD</text>
+<text x="595.0" y="483" font-size="12" text-anchor="middle" fill="#FF7A5C">MERGE: latest version</text>
+<text x="595.0" y="499" font-size="12" text-anchor="middle" fill="#8B969C">SCD2 with AUTO CDC</text>
+<text x="595.0" y="515" font-size="12" text-anchor="middle" fill="#8B969C">views + Delta Sharing</text>
+<line x1="699" y1="478.0" x2="721" y2="478.0" stroke="#FF7A5C" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#ah-db)"/>
+<rect x="725" y="430" width="200" height="96" rx="10" fill="#12171A"/>
+<rect x="725" y="430" width="200" height="20" rx="10" fill="#A78BFA"/>
+<rect x="725" y="436" width="200" height="16" fill="#12171A"/>
+<rect x="725" y="430" width="200" height="96" rx="10" fill="none" stroke="#FF7A5C" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="825.0" y="461" font-size="14" font-weight="800" letter-spacing="2" text-anchor="middle" fill="#EDF1F2">MIGRATION</text>
+<text x="825.0" y="483" font-size="12" text-anchor="middle" fill="#FF7A5C">legacy T-SQL, sqlglot</text>
+<text x="825.0" y="499" font-size="12" text-anchor="middle" fill="#8B969C">→ Databricks SQL, run</text>
+<text x="825.0" y="515" font-size="12" text-anchor="middle" fill="#8B969C">the same parity checks</text>
+<rect x="35" y="534" width="890" height="80" rx="10" fill="#12171A" stroke="#FF7A5C" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="51.0" y="554" font-size="11" font-weight="700" letter-spacing="1.2" fill="#FF7A5C">ORCHESTRATE</text>
+<text x="51.0" y="572" font-size="12" fill="#EDF1F2">Lakeflow Jobs (Workflows)</text>
+<text x="51.0" y="588" font-size="12" fill="#8B969C">for_each loads, depends_on</text>
+<text x="51.0" y="604" font-size="12" fill="#8B969C">retries, failure alerts</text>
+<line x1="257.5" y1="546" x2="257.5" y2="602" stroke="#2C363C" stroke-width="1"/>
+<text x="273.5" y="554" font-size="11" font-weight="700" letter-spacing="1.2" fill="#FF7A5C">BUILD &amp; SHIP</text>
+<text x="273.5" y="572" font-size="12" fill="#EDF1F2">Asset Bundles (DABs)</text>
+<text x="273.5" y="588" font-size="12" fill="#8B969C">targets: dev → prod</text>
+<text x="273.5" y="604" font-size="12" fill="#8B969C">CI: Jenkins or Actions</text>
+<line x1="480.0" y1="546" x2="480.0" y2="602" stroke="#2C363C" stroke-width="1"/>
+<text x="496.0" y="554" font-size="11" font-weight="700" letter-spacing="1.2" fill="#FF7A5C">AS CODE &amp; GOVERN</text>
+<text x="496.0" y="572" font-size="12" fill="#EDF1F2">Terraform (Databricks)</text>
+<text x="496.0" y="588" font-size="12" fill="#8B969C">Unity Catalog, IdP groups</text>
+<text x="496.0" y="604" font-size="12" fill="#8B969C">PII column masks</text>
+<line x1="702.5" y1="546" x2="702.5" y2="602" stroke="#2C363C" stroke-width="1"/>
+<text x="718.5" y="554" font-size="11" font-weight="700" letter-spacing="1.2" fill="#FF7A5C">COST &amp; AI</text>
+<text x="718.5" y="572" font-size="12" fill="#EDF1F2">serverless SQL warehouse</text>
+<text x="718.5" y="588" font-size="12" fill="#8B969C">tags + system tables</text>
+<text x="718.5" y="604" font-size="12" fill="#8B969C">MCP server, Genie, agents</text>
+<text x="35" y="642" font-size="12" font-weight="700" letter-spacing="1.5" fill="#CDF546">03  CONSUMERS</text>
+<line x1="480.0" y1="622" x2="480.0" y2="658" stroke="#818C92" stroke-width="1.6"/>
+<line x1="128.0" y1="658" x2="832.0" y2="658" stroke="#818C92" stroke-width="1.6"/>
+<line x1="128.0" y1="658" x2="128.0" y2="676" stroke="#818C92" stroke-width="1.6" marker-end="url(#ah)"/>
+<line x1="304.0" y1="658" x2="304.0" y2="676" stroke="#818C92" stroke-width="1.6" marker-end="url(#ah)"/>
+<line x1="480.0" y1="658" x2="480.0" y2="676" stroke="#818C92" stroke-width="1.6" marker-end="url(#ah)"/>
+<line x1="656.0" y1="658" x2="656.0" y2="676" stroke="#818C92" stroke-width="1.6" marker-end="url(#ah)"/>
+<line x1="832.0" y1="658" x2="832.0" y2="676" stroke="#818C92" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="48.0" y="678" width="160.0" height="50" rx="8" fill="#12171A" stroke="#2C363C"/>
+<text x="128.0" y="699" font-size="14" font-weight="700" text-anchor="middle" fill="#EDF1F2">Finance</text>
+<text x="128.0" y="717" font-size="11.5" text-anchor="middle" fill="#8B969C">AUM, flows, fees</text>
+<rect x="224.0" y="678" width="160.0" height="50" rx="8" fill="#12171A" stroke="#2C363C"/>
+<text x="304.0" y="699" font-size="14" font-weight="700" text-anchor="middle" fill="#EDF1F2">Operations</text>
+<text x="304.0" y="717" font-size="11.5" text-anchor="middle" fill="#8B969C">breaks, fails</text>
+<rect x="400.0" y="678" width="160.0" height="50" rx="8" fill="#12171A" stroke="#2C363C"/>
+<text x="480.0" y="699" font-size="14" font-weight="700" text-anchor="middle" fill="#EDF1F2">Risk</text>
+<text x="480.0" y="717" font-size="11.5" text-anchor="middle" fill="#8B969C">positions in EUR</text>
+<rect x="576.0" y="678" width="160.0" height="50" rx="8" fill="#12171A" stroke="#2C363C"/>
+<text x="656.0" y="699" font-size="14" font-weight="700" text-anchor="middle" fill="#EDF1F2">Power BI</text>
+<text x="656.0" y="717" font-size="11.5" text-anchor="middle" fill="#8B969C">semantic KPIs</text>
+<rect x="752.0" y="678" width="160.0" height="50" rx="8" fill="#12171A" stroke="#2C363C"/>
+<text x="832.0" y="699" font-size="14" font-weight="700" text-anchor="middle" fill="#EDF1F2">AI lab</text>
+<text x="832.0" y="717" font-size="11.5" text-anchor="middle" fill="#8B969C">governed data</text>
+</svg>

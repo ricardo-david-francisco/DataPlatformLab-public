@@ -1,0 +1,16 @@
+version: 2
+
+unit_tests:
+  - name: the_latest_amendment_wins
+    description: A trade amended once keeps only version 2; an unamended trade keeps version 1.
+    model: int_trades_latest
+    given:
+      - input: ref('stg_custody__trades')
+        rows:
+          - {trade_id: 1, version: 1, quantity: 100}
+          - {trade_id: 1, version: 2, quantity: 120}
+          - {trade_id: 2, version: 1, quantity: 50}
+    expect:
+      rows:
+        - {trade_id: 1, version: 2, quantity: 120}
+        - {trade_id: 2, version: 1, quantity: 50}

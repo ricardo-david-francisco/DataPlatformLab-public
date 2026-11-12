@@ -1,0 +1,13 @@
+.git
+.github
+.venv
+warehouse
+data/reference
+data/market
+data/custody
+data/transfer_agent
+transform/target
+transform/logs
+migration/reports
+platform/terraform/.terraform
+**/__pycache__

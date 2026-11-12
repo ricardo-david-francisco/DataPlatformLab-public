@@ -1,0 +1,19 @@
+# Two targets, same models: local DuckDB (default, also CI) and a Snowflake account (key-pair auth, no password).
+dataplatformlab:
+  target: "{{ env_var('DPL_TARGET', 'local') }}"
+  outputs:
+    local:
+      type: duckdb
+      path: "{{ env_var('DPL_WAREHOUSE', '../warehouse/lab.duckdb') }}"
+      schema: analytics
+      threads: 4
+    snowflake:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT', 'not-set') }}"
+      user: "{{ env_var('SNOWFLAKE_USER', 'not-set') }}"
+      private_key_path: "{{ env_var('SNOWFLAKE_PRIVATE_KEY_PATH', 'not-set') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE', 'DPL_ENGINEER') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE', 'DPL_WH') }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE', 'DPL') }}"
+      schema: analytics
+      threads: 4
